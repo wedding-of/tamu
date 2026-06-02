@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      background-color: rgba(232, 230, 224, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: cursive;
+      background-image: url('doraemon.jpg'); 
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .box, .box-text {
+      padding: 15px;
+      width: 100%;
+      max-width: 400px;
+      background-color: rgba(211, 211, 211, 0.9);
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+
+    .box-text {
+      height: auto; 
+      font-family: 'Times New Roman', Times, serif;
+      line-height: 1.6;
+    }
+
+    input#guestName {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .undang p {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px; 
+    }
+
+    .button {
+      width: 100%;
+      font-family: 'Times New Roman', serif;
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+      background-color: lightblue;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .block {
+      text-align: center;
+      font-family: 'Times New Roman', serif;
+      font-weight: bold;
+      font-style: italic;
+      margin-top: 10px;
+      padding-bottom: 20px;
+    }
+    
+    #link {
+      color: blue;
+      word-wrap: break-word;
+      text-decoration: underline;
+      display: block;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="undang">
+      <p>Masukkan Nama Tamu:</p>
+      <input type="text" id="guestName" placeholder="Masukkan nama Anda">
+      <button class="button" onclick="generateInvitationLink()">Buat Undangan</button> 
+    </div>
+  </div>
+
+  <div class="box-text">
+    <div class="pesan">
+      <a id="link" href="#"></a> 
+      <button class="button" onclick="copyText()">Salin Teks</button>
+    </div>
+  </div>
+
+  <div class="block">&copy; 2024 Presented by Bimatech.</div>
+
+  <script>
+   function generateInvitationLink() {
+      const guestName = document.getElementById('guestName').value;
+      const baseUrl = 'https://pernikahan-hub.github.io/Bima-dan-Filsah/'; 
+
+      if (guestName.trim() === "") {
+        alert("Silakan masukkan nama tamu");
+        return;
+      }
+
+      const encodedName = encodeURIComponent(guestName);
+      const fullUrl = `${baseUrl}?to=${encodedName}`;
+
+      const linkElement = document.getElementById('link');
+
+      linkElement.textContent = fullUrl;
+      linkElement.setAttribute('href', fullUrl);
+      linkElement.setAttribute('target', '_blank');
+   } 
+    
+    function copyText() {
+      const linkElement = document.getElementById('link');
+      const textToCopy = linkElement.textContent;
+      
+      if (!textToCopy) {
+        alert("Belum ada link yang dibuat!");
+        return;
+      }
+
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+          alert('Teks berhasil disalin!');
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    }
+  </script>
+</body>
+</html>
