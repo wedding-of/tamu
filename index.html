@@ -102,6 +102,7 @@
 
   <script>
    function generateInvitationLink() {
+      // 1. Mengambil nilai dari input
       const guestName = document.getElementById('guestName').value;
       const baseUrl = 'https://pernikahan-hub.github.io/Bima-dan-Filsah/'; 
 
@@ -110,22 +111,24 @@
         return;
       }
 
-      const encodedName = encodeURIComponent(guestName);
-      const fullUrl = `${baseUrl}?to=${encodedName}`;
+      // 2. Membuat URL dengan nama tamu yang di-encode agar link valid
+      const fullUrl = `${baseUrl}?to=${encodeURIComponent(guestName)}`;
 
+      // 3. Menghubungkan ke elemen link yang ada di HTML
       const linkElement = document.getElementById('link');
 
+      // 4. Update teks dan atribut href agar link berubah mengikuti input
       linkElement.textContent = fullUrl;
       linkElement.setAttribute('href', fullUrl);
       linkElement.setAttribute('target', '_blank');
    } 
     
-    function copyText() {
+   function copyText() {
       const linkElement = document.getElementById('link');
       const textToCopy = linkElement.textContent;
       
       if (!textToCopy) {
-        alert("Belum ada link yang dibuat!");
+        alert("Buat link terlebih dahulu!");
         return;
       }
 
@@ -136,7 +139,8 @@
         .catch(err => {
           console.error('Failed to copy: ', err);
         });
-    }
-  </script>
+   }
+</script>
+
 </body>
 </html>
